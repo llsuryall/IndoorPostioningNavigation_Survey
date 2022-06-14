@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/block_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/block_name"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:maxLength="25"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/block_latitude_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/block_latitude"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal|numberSigned"
+        android:maxLength="11"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/block_longitude_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="@string/block_longitude"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal|numberSigned"
+        android:maxLength="12"
+        android:textSize="16sp" />
+</LinearLayout>
