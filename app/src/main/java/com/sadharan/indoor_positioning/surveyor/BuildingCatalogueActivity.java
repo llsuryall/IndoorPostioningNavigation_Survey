@@ -13,43 +13,65 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
+import androidx.lifecycle.ViewModelProvider;
 
 public class BuildingCatalogueActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener, View.OnLongClickListener {
     private LocalSurveyDatabase localSurveyDatabase;
-    private AlertDialog.Builder addBuildingAlertBoxBuilder;
-    private LayoutInflater layoutInflater;
+    private BuildingCatalogueViewModel buildingCatalogueViewModel;
+    private AlertDialog addBuildingAlertDialog;
     private LinearLayout buildingElementsHolder;
     private View addBuildingContent;
+    private LayoutInflater layoutInflater;
 
     @SuppressLint("InflateParams")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.building_catalogue_activity);
         initialize();
-        updateCatalogue();
     }
 
     private void initialize() {
+        setContentView(R.layout.building_catalogue_activity);
         this.localSurveyDatabase = new LocalSurveyDatabase(getApplicationContext());
-        this.addBuildingAlertBoxBuilder = new AlertDialog.Builder(BuildingCatalogueActivity.this);
+        this.buildingCatalogueViewModel = new ViewModelProvider(this).get(BuildingCatalogueViewModel.class);
+        this.buildingCatalogueViewModel.setLocalSurveyDatabase(localSurveyDatabase);
+        if (this.buildingCatalogueViewModel.buildingElements == null) {
+            this.buildingCatalogueViewModel.updateCatalogue();
+        }
+        AlertDialog.Builder addBuildingAlertBoxBuilder;
+        addBuildingAlertBoxBuilder = new AlertDialog.Builder(BuildingCatalogueActivity.this);
         this.layoutInflater = LayoutInflater.from(BuildingCatalogueActivity.this);
-        this.addBuildingContent = this.layoutInflater.inflate(R.layout.add_building_dialog, null);
-        this.addBuildingAlertBoxBuilder.setTitle(R.string.add_building)
+        this.addBuildingContent = layoutInflater.inflate(R.layout.add_building_dialog, null);
+        addBuildingAlertBoxBuilder.setTitle(R.string.add_building)
                 .setPositiveButton(R.string.save_button, this)
                 .setNegativeButton(R.string.cancel_button, null)
                 .setView(addBuildingContent)
                 .setCancelable(false);
+        this.addBuildingAlertDialog = addBuildingAlertBoxBuilder.create();
         this.buildingElementsHolder = findViewById(R.id.building_elements_holder);
         findViewById(R.id.addBuildingButton).setOnClickListener(this);
+        findViewById(R.id.resetDatabaseButton).setOnClickListener(this);
+        refreshCatalogueView();
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.addBuildingButton) {
-            this.addBuildingAlertBoxBuilder.create().show();
+            this.addBuildingAlertDialog.show();
+        } else if (view.getId() == R.id.resetDatabaseButton) {
+            boolean successful = false;
+            try {
+                successful = this.localSurveyDatabase.resetDatabase();
+                buildingCatalogueViewModel.updateCatalogue();
+                refreshCatalogueView();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (successful) {
+                Toast.makeText(this, R.string.reset_database_success, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.reset_database_failure, Toast.LENGTH_SHORT).show();
+            }
         } else {
             long building_id = Long.parseLong(((TextView) view.findViewById(R.id.building_id)).getText().toString());
             Intent blockCatalogueActivity = new Intent(this, BlockCatalogueActivity.class);
@@ -60,11 +82,19 @@ public class BuildingCatalogueActivity extends AppCompatActivity implements View
 
     @Override
     public boolean onLongClick(View view) {
-        if (this.localSurveyDatabase.deleteBuilding(Long.parseLong(((TextView) view.findViewById(R.id.building_id)).getText().toString()))) {
-            Toast.makeText(this, R.string.delete_building_successful, Toast.LENGTH_SHORT).show();
-            updateCatalogue();
+        try {
+            if (this.localSurveyDatabase.deleteBuilding(Long.parseLong(((TextView) view.findViewById(R.id.building_id)).getText().toString()))) {
+                Toast.makeText(this, R.string.delete_building_successful, Toast.LENGTH_SHORT).show();
+                buildingCatalogueViewModel.updateCatalogue();
+                refreshCatalogueView();
+            } else {
+                Toast.makeText(this, R.string.delete_building_failure, Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
         }
-        return true;
     }
 
     @Override
@@ -80,7 +110,8 @@ public class BuildingCatalogueActivity extends AppCompatActivity implements View
             successful = false;
         }
         if (successful) {
-            updateCatalogue();
+            buildingCatalogueViewModel.updateCatalogue();
+            refreshCatalogueView();
             buildingNameInput.setText("");
             buildingAddressInput.setText("");
         } else {
@@ -88,10 +119,9 @@ public class BuildingCatalogueActivity extends AppCompatActivity implements View
         }
     }
 
-    private void updateCatalogue() {
-        ArrayList<BuildingElement> buildingElements = localSurveyDatabase.getBuildingList();
+    private void refreshCatalogueView() {
         buildingElementsHolder.removeAllViews();
-        for (BuildingElement buildingElement : buildingElements) {
+        for (BuildingElement buildingElement : this.buildingCatalogueViewModel.buildingElements) {
             addBuildingElement(buildingElement);
         }
     }

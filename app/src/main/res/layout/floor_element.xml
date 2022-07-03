@@ -11,21 +11,15 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/block_name"
+        android:id="@+id/floor_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/block_coordinates"
+        android:id="@+id/floor_coordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="12sp" />
-
-    <TextView
-        android:id="@+id/block_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
 
 </LinearLayout>
