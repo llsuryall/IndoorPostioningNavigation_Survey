@@ -1,26 +1,50 @@
 <resources>
     <string name="app_name">Indoor Positioning Survey</string>
-    <string name="turn_on_wifi">Please turn on WiFi</string>
-    <string name="turn_on_location">Please turn on Location</string>
+    <!--Buttons-->
     <string name="add_symbol">+</string>
-    <string name="add_building">Add Building</string>
-    <string name="add_block">Add Block</string>
+    <string name="reset_button">Reset</string>
     <string name="save_button">Save</string>
+    <string name="scan_button">Scan</string>
     <string name="confirm_button">Confirm</string>
     <string name="cancel_button">Cancel</string>
-    <string name="empty_list">Empty</string>
+    <!--Messages-->
+    <string name="turn_on_wifi">Please turn on WiFi</string>
+    <string name="turn_on_location">Please turn on Location</string>
+    <string name="add_building_successful">Building added successfully!</string>
+    <string name="add_building_failure">Unable to add building with given attributes</string>
+    <string name="delete_building_successful">Building deleted successfully!</string>
+    <string name="delete_building_failure">Unable to delete the chosen building!</string>
+    <string name="add_block_successful">Block added successfully!</string>
+    <string name="add_block_failure">Unable to add block with given attributes</string>
+    <string name="delete_block_successful">Block deleted successfully!</string>
+    <string name="delete_block_failure">Unable to delete the chosen block!</string>
+    <string name="add_floor_successful">Floor added successfully!</string>
+    <string name="add_floor_failure">Unable to add floor with given attributes</string>
+    <string name="delete_floor_successful">Floor deleted successfully!</string>
+    <string name="delete_floor_failure">Unable to delete the chosen floor!</string>
+    <string name="add_datapoint_successful">Datapoint added successfully</string>
+    <string name="add_datapoint_failure">Unable to add the datapoint with given attributes</string>
+    <string name="reset_database_success">Database reset complete!</string>
+    <string name="reset_database_failure">Unable to reset the database!</string>
+    <!--Instructions-->
+    <string name="ap_signal_strength_json">Current AP Signal Strength JSON-</string>
+    <string name="add_building">Add Building</string>
+    <string name="add_block">Add Block</string>
+    <string name="add_floor">Add Floor</string>
     <string name="building_name">Building Name</string>
     <string name="building_address">Building Address</string>
-    <string name="add_building_successful">Building added successfully!</string>
-    <string name="add_block_successful">Block added successfully!</string>
-    <string name="delete_building_successful">Building deleted successfully!</string>
-    <string name="delete_block_successful">Block deleted successfully!</string>
-    <string name="add_building_failure">Unable to add building with given attributes</string>
-    <string name="add_block_failure">Unable to add block with given attributes</string>
-    <string name="confirmation">Are you sure?</string>
     <string name="block_name">Block Name</string>
     <string name="block_latitude">Block Latitude</string>
     <string name="block_longitude">Block Longitude</string>
+    <string name="floor_id">Floor ID</string>
+    <string name="floor_height">Floor Height</string>
+    <string name="floor_width">Floor Width</string>
+    <string name="select_blueprint">Select Blueprint</string>
+    <string name="x_coordinate_input">X Coordinate</string>
+    <string name="y_coordinate_input">Y Coordinate</string>
+    <!--Miscellaneous-->
+    <string name="empty_list">Empty</string>
     <string name="building_id_field">BUILDING_ID</string>
     <string name="block_id_field">BLOCK_ID</string>
+    <string name="floor_id_field">FLOOR_ID</string>
 </resources>

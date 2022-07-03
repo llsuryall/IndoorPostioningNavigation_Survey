@@ -6,9 +6,13 @@ public class BuildingElement {
     public String address;
 
     BuildingElement(long id, String name, String address) throws IllegalArgumentException {
-        this.id = id;
+        this.setId(id);
         this.setName(name);
         this.setAddress(address);
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) throws IllegalArgumentException {

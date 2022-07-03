@@ -3,6 +3,7 @@
     package="com.sadharan.indoor_positioning.surveyor">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -22,8 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.sadharan.indoor_positioning.surveyor.BlockCatalogueActivity">
-        </activity>
+        <activity android:name="com.sadharan.indoor_positioning.surveyor.BlockCatalogueActivity"></activity>
+        <activity android:name="com.sadharan.indoor_positioning.surveyor.FloorCatalogueActivity"></activity>
+        <activity android:name="com.sadharan.indoor_positioning.surveyor.SurveyActivity"></activity>
     </application>
 
 </manifest>

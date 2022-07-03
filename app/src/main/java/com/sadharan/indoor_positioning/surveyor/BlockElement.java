@@ -6,11 +6,15 @@ public class BlockElement {
     public float latitude, longitude;
 
     BlockElement(long id, long building_id, String name, float latitude, float longitude) throws IllegalArgumentException {
-        this.id = id;
+        this.setId(id);
         this.building_id = building_id;
         setName(name);
         setLatitude(latitude);
         setLongitude(longitude);
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public void setName(String name) throws IllegalArgumentException {
